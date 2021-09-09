@@ -6,7 +6,7 @@ lowercase = uppercase.downcase
 specials = "!@#$%^&*()_+-=';:,.<>/?[]{}"
 numbers = "1234567890"
 
-# get password length from user + validation
+# get desired password length from user + validation
 if INTERACTIVE
     print "Enter a password length: "
     passLength = ""
@@ -16,15 +16,15 @@ if INTERACTIVE
         passLength = gets.strip.to_i
     end
     print "Enter characters to exclude (no spaces): "
-    excluded = gets.strip
+    excluded = gets.strip.split("")
 end
 
+# master_set = set of characters for randomiser to draw from
 master_set = (uppercase + lowercase + specials + numbers).split("")
+
+# remove any excluded characters from the master set
 if excluded != nil
-    excluded.split("")
-    for i in (0..excluded.length)
-        master_set.delete(excluded[i] )
-    end
+    excluded.each { |excluded_character| master_set.delete(excluded_character) }
 end
 
 generated_password = ""
